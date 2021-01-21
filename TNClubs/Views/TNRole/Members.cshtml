@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+
+
+
+<h1>Members of @ViewBag.Role</h1>
+
+<form asp-route-role="@ViewBag.Role" asp-action="Members" class="col-md-8">
+    <select class="form-control" name="Id" asp-items="ViewBag.UsersNotInRole"></select>
+    <input type="submit" value="Add User" class="btn btn-primary" />
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName);
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                
+                <td>
+                    <a asp-action="Remove" asp-route-Id="@item.Id" asp-route-role="@ViewBag.Role">Remove</a>                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

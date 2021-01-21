@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TNClubs.Models.GroupMember>
+
+@{
+    ViewData["Title"] = $"Groups associated with {ViewBag.FullName} ";
+}
+
+<h1>Groups associated with @ViewBag.FullName</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLeft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdGroupNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdMemberNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateJoined)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateLeft)
+            </td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.ArtistIdGroupNavigation.NameAddress.FirstName)
+                  && !string.IsNullOrEmpty(item.ArtistIdGroupNavigation.NameAddress.LastName))
+                {
+                    string fullName = $"{item.ArtistIdGroupNavigation.NameAddress.LastName},{item.ArtistIdGroupNavigation.NameAddress.FirstName}";
+                    @Html.DisplayFor(modelItem => fullName);
+                }
+                else if (!string.IsNullOrEmpty(item.ArtistIdGroupNavigation.NameAddress.FirstName)
+                    && string.IsNullOrEmpty(item.ArtistIdGroupNavigation.NameAddress.LastName))
+                {
+                    @Html.DisplayFor(ModelItem => item.ArtistIdGroupNavigation.NameAddress.FirstName);
+                }
+                else if (string.IsNullOrEmpty(item.ArtistIdGroupNavigation.NameAddress.FirstName)
+                && !string.IsNullOrEmpty(item.ArtistIdGroupNavigation.NameAddress.LastName))
+                {
+                    @Html.DisplayFor(ModelItem => item.ArtistIdGroupNavigation.NameAddress.FirstName);
+                }
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtistIdMemberNavigation.ArtistId)
+            </td>
+            <td>
+                <a asp-action="Index" asp-route-artistId=@item.ArtistIdGroup>Group Page</a>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

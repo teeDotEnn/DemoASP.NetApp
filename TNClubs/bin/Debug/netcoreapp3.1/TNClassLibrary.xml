@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TNClassLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:TNClassLibrary.TNEmailAnnotation">
+            <summary>
+            the Validation Attribute for email addresses
+            </summary>
+        </member>
+        <member name="M:TNClassLibrary.TNEmailAnnotation.#ctor(System.String)">
+            <summary>
+            Set the error message of the attribute
+            </summary>
+            <param name="errorMessage">the error message to be displayed</param>
+        </member>
+        <member name="M:TNClassLibrary.TNEmailAnnotation.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Check to see if the email is valid or not
+            </summary>
+            <param name="value"></param>
+            <param name="validationContext"></param>
+            <returns>ValidationResult.Success if valid, Error message if not</returns>
+        </member>
+        <member name="T:TNClassLibrary.TNStringManipulation">
+            <summary>
+            Class that contains string manipulation functions
+            </summary>
+        </member>
+        <member name="M:TNClassLibrary.TNStringManipulation.TNExtractDigits(System.String)">
+            <summary>
+            2a. a.Add a method called XXExtractDigits that accepts a string and returns a string:
+                    i.Null is possible, so don’t blow up on it.
+                    ii.Return a string containing all digits found in the input string.
+            </summary>
+            <param name="input">string to find the digits in</param>
+            <returns>digits possible in the string</returns>
+        </member>
+        <member name="M:TNClassLibrary.TNStringManipulation.TNPostalCodeIsValid(System.String,System.String)">
+            <summary>
+              b.Add a method called XXPostalCodeIsValid that accepts two strings and returns a Boolean:
+                 i.The first string parameter is the given postal code.The second string is the postal code Regex pattern from the country table.
+                 ii.Return true if the string matches the country’s postal pattern … or is null/empty.
+            </summary>
+            <param name="postalCode">The postal code to be checked</param>
+            <param name="postalCodeRegex">The pattern to check the postal code against</param>
+            <returns>true if matched or null/empty, false if not a match</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TNClassLibrary.TNStringManipulation.TNCapitalize(System.String)" -->
+    </members>
+</doc>

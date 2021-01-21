@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TNClubs.Models.Artist>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MinimumHourlyRate)
+            </th>
+            <th>
+                Full Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinimumHourlyRate)
+            </td>
+            <td>
+                @if(item.NameAddress.FirstName != null && item.NameAddress.LastName != null)
+                {
+                    string fullName = $"{item.NameAddress.LastName},{item.NameAddress.FirstName}";
+                    @Html.DisplayFor(modelItem=>fullName);
+                }
+                else if(item.NameAddress.FirstName != null && item.NameAddress.LastName == null)
+                {
+                    @Html.DisplayFor(ModelItem=>item.NameAddress.FirstName);
+                }
+                else if (item.NameAddress.FirstName == null && item.NameAddress.LastName != null)
+                {
+                    @Html.DisplayFor(ModelItem => item.NameAddress.LastName);
+                }
+                
+            </td>
+            <td>
+                <a asp-action="Index" asp-controller="TNGroupMember" asp-route-artistId="@item.ArtistId"
+                   asp-route-fullName="@item.NameAddress.FirstName @item.NameAddress.LastName">Group Members</a> |
+                <a asp-action="Edit" asp-route-id="@item.ArtistId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ArtistId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ArtistId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TNClubs.Models.GroupMember>
+
+@{
+    ViewData["Title"] = $"Members of {ViewBag.groupName}";
+}
+
+<h1>Members of @ViewBag.groupName</h1>
+
+<p>
+    <a asp-action="Create">Add new group member</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateJoined)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateLeft)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.ArtistIdMemberNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string fullName = "";
+            if (string.IsNullOrEmpty(item.ArtistIdMemberNavigation.NameAddress.LastName))
+            {
+                fullName = item.ArtistIdMemberNavigation.NameAddress.FirstName;
+            }
+            else
+            {
+
+                fullName = $"{item.ArtistIdMemberNavigation.NameAddress.FirstName} { item.ArtistIdMemberNavigation.NameAddress.LastName}";
+
+            }
+            <tr>
+                <td>
+                    @{
+
+                        string sDateJoined = "";
+                        if (item.DateJoined != null)
+                        {
+                            DateTime dateJoined = (DateTime)item.DateJoined;
+                            sDateJoined = dateJoined.ToString("dd MMM yyyy");
+                        }
+                    }
+                    @sDateJoined
+                </td>
+                <td>
+                    @{
+
+                        string sDateLeft = "";
+                        if (item.DateLeft != null)
+                        {
+                            DateTime dateLeft = (DateTime)item.DateLeft;
+                            sDateLeft = dateLeft.ToString("dd MMM yyyy");
+                        }
+                    }
+                    @sDateLeft
+                </td>
+                <td>
+                    @fullName
+                </td>
+                <td>
+
+                    <a asp-action="Edit" asp-route-artistId="@item.ArtistIdMember" asp-route-fullName="@fullName">Edit</a> |
+                    <a asp-action="Details" asp-route-artistId="@item.ArtistIdMember" asp-route-fullName="@fullName">Details</a>|
+                    <a asp-action="Delete" asp-route-artistId="@item.ArtistIdMember" asp-route-fullName="@fullName">Delete</a>|
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
